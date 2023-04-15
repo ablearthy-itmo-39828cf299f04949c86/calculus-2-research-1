@@ -1,0 +1,79 @@
+\starttypescript [timesnewroman]
+  \definefontsynonym[TimesNewRoman-Regular]    [file:times]
+  \definefontsynonym[TimesNewRoman-Italic]     [file:timesi]
+  \definefontsynonym[TimesNewRoman-Bold]       [file:timesbd]
+  \definefontsynonym[TimesNewRoman-BoldItalic] [file:timesbi]
+\stoptypescript
+
+\starttypescript [serif] [timesnewroman]
+  \setups[font:fallback:serif]
+  \definefontsynonym[Serif]                [TimesNewRoman-Regular]    [features=default]
+  \definefontsynonym[SerifItalic]          [TimesNewRoman-Italic]     [features=default]
+  \definefontsynonym[SerifBold]            [TimesNewRoman-Bold]       [features=default]
+  \definefontsynonym[SerifBoldItalic]      [TimesNewRoman-BoldItalic] [features=default]
+\stoptypescript
+
+\starttypescript [timesnewroman]
+  \definetypeface [\typescriptone] [rm] [serif] [timesnewroman] [default]
+  \definetypeface [\typescriptone] [ss] [sans]  [modern]        [default]
+  \definetypeface [\typescriptone] [tt] [mono]  [modern]        [default]
+  \definetypeface [\typescriptone] [mm] [math]  [xits]          [default]
+\stoptypescript
+
+
+\setupbodyfont[timesnewroman]
+\setupbodyfont[14pt]
+
+\setupcolors[state=start]
+
+\setupinteraction[state=start]
+
+
+\setuplayout[topspace=2cm, backspace=3cm, header=0mm, footer=16pt, height=middle, width=16cm]
+
+\setuppagenumbering[location={footer,middle}, style=bold]
+
+\setupitemize[inbetween={}, style=bold]
+
+\setuphead [section] [align={center},style={\WORD\switchtobodyfont[16pt]}]
+
+% set inter-paragraph spacing
+\setupwhitespace[medium]
+% comment the next line to not indent paragraphs
+\setupindenting[medium, yes]
+
+\mainlanguage[ru]
+
+\startMPrun
+  input 1-problem_2_g ;
+\stopMPrun
+
+\starttext
+
+\title{Исследовательская работа № 1}
+\setuphead[title][align={center},style={\WORD\switchtobodyfont[16pt]}]
+\setupcombinedlist[content][list={section,subsection}, alternative=c,]
+\completecontent
+\page[yes]
+
+\section{Задача № 1}
+Дана кусочно-заданная функция:
+\startformula
+g(x) =
+  \startmathcases
+    \NC \sqrt{x - 3},    \NC x \ge 3 \NR
+    \NC \frac{1}{x - 3}, \NC 0 \le x < 3 \NR
+    \NC 3 x^2 + 1,       \NC x < 0 \NR
+  \stopmathcases
+\stopformula
+
+\startitemize[n]
+\item Найдите такую непрерывную функцию \m{f(x)}, что \m{f'(x) = g(x)} или докажите, что она
+    не может быть непрерывна.
+\item Постройте графики функций \m{f(x)} и \m{g(x)} в одном масштабе и расположите их один под другим.
+\item Проанализируйте графики, сделайте комментарии о виде графика функции \m{f(x)} в зависимости от вида графика функции \m{g(x)}.
+\stopitemize
+
+\placefigure[location={middle}, title=\m{g(x)}]{}{\externalfigure[mprun.1]}
+
+\stoptext
