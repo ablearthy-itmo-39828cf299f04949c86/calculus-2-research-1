@@ -1,79 +1,55 @@
-\starttypescript [timesnewroman]
-  \definefontsynonym[TimesNewRoman-Regular]    [file:times]
-  \definefontsynonym[TimesNewRoman-Italic]     [file:timesi]
-  \definefontsynonym[TimesNewRoman-Bold]       [file:timesbd]
-  \definefontsynonym[TimesNewRoman-BoldItalic] [file:timesbi]
-\stoptypescript
+\documentclass[a4paper,12pt]{article}
 
-\starttypescript [serif] [timesnewroman]
-  \setups[font:fallback:serif]
-  \definefontsynonym[Serif]                [TimesNewRoman-Regular]    [features=default]
-  \definefontsynonym[SerifItalic]          [TimesNewRoman-Italic]     [features=default]
-  \definefontsynonym[SerifBold]            [TimesNewRoman-Bold]       [features=default]
-  \definefontsynonym[SerifBoldItalic]      [TimesNewRoman-BoldItalic] [features=default]
-\stoptypescript
+\usepackage{ablpreamble}
 
-\starttypescript [timesnewroman]
-  \definetypeface [\typescriptone] [rm] [serif] [timesnewroman] [default]
-  \definetypeface [\typescriptone] [ss] [sans]  [modern]        [default]
-  \definetypeface [\typescriptone] [tt] [mono]  [modern]        [default]
-  \definetypeface [\typescriptone] [mm] [math]  [xits]          [default]
-\stoptypescript
-
-
-\setupbodyfont[timesnewroman]
-\setupbodyfont[14pt]
-
-\setupcolors[state=start]
-
-\setupinteraction[state=start]
-
-
-\setuplayout[topspace=2cm, backspace=3cm, header=0mm, footer=16pt, height=middle, width=16cm]
-
-\setuppagenumbering[location={footer,middle}, style=bold]
-
-\setupitemize[inbetween={}, style=bold]
-
-\setuphead [section] [align={center},style={\WORD\switchtobodyfont[16pt]}]
-
-% set inter-paragraph spacing
-\setupwhitespace[medium]
-% comment the next line to not indent paragraphs
-\setupindenting[medium, yes]
-
-\mainlanguage[ru]
-
-\startMPrun
-  input 1-problem_2_g ;
-\stopMPrun
-
-\starttext
-
-\title{Исследовательская работа № 1}
-\setuphead[title][align={center},style={\WORD\switchtobodyfont[16pt]}]
-\setupcombinedlist[content][list={section,subsection}, alternative=c,]
-\completecontent
-\page[yes]
+\begin{document}
 
 \section{Задача № 1}
-Дана кусочно-заданная функция:
-\startformula
-g(x) =
-  \startmathcases
-    \NC \sqrt{x - 3},    \NC x \ge 3 \NR
-    \NC \frac{1}{x - 3}, \NC 0 \le x < 3 \NR
-    \NC 3 x^2 + 1,       \NC x < 0 \NR
-  \stopmathcases
-\stopformula
 
-\startitemize[n]
-\item Найдите такую непрерывную функцию \m{f(x)}, что \m{f'(x) = g(x)} или докажите, что она
+\[
+  g(x) =
+  \begin{cases}
+    \sqrt{x - 3}, & x \ge 3, \\
+    \frac{1}{x - 3}, & 0 \le x < 3, \\
+    3 x^2 + 1, & x < 0.
+  \end{cases}
+\]
+
+\begin{enumerate}
+\item Найдите такую непрерывную функцию \(f(x)\), что \(f'(x) = g(x)\) или докажите, что она
     не может быть непрерывна.
-\item Постройте графики функций \m{f(x)} и \m{g(x)} в одном масштабе и расположите их один под другим.
-\item Проанализируйте графики, сделайте комментарии о виде графика функции \m{f(x)} в зависимости от вида графика функции \m{g(x)}.
-\stopitemize
+\item Постройте графики функций \(f(x)\) и \(g(x)\) в одном масштабе и расположите их один под другим.
+\item Проанализируйте графики, сделайте комментарии о виде графика функции \(f(x)\) в зависимости от вида графика функции \(g(x)\).
+\end{enumerate}
 
-\placefigure[location={middle}, title=\m{g(x)}]{}{\externalfigure[mprun.1]}
+\section{Задача № 2}
 
-\stoptext
+\subsection{Задача № 2 А}
+
+Вычислите работу, которую нужно затратить на выкачивание воды из резервуара, представляющего из себя усеченный конус, у которого радиус верхнего основания равен 1 м, нижнего – 2 м, высота – 3 м. Удельный вес воды принять \(\rho = \SI{9.81}{\kN\per\cubic\metre}\), \(\pi = \num{3.14}\)
+
+\subsection{Задача № 2 Б}
+
+Вычислите силу давления воды на пластинку, вертикально погруженную в воду, считая, что удельный вес воды равен \(\rho = \SI{9.81}{\kN\per\cubic\metre}\). Результат округлите до целого числа.
+
+\subsection{Задача № 2 В}
+
+Найдите координаты центра масс плоской однородной фигуры, ограниченной дугой синусоиды \(y = \sin x\) и
+отрезком оси \(Ox\) (\(0 \le x \le \pi\)).
+
+\section{Задача № 3}
+
+Найти площадь фигуры, образованной графиком функции \(f(x)\) и её асимптотами, если
+\[
+  f(x) = \frac{x^4 - 4 x^3 + 6 x^2 - 4 x + 16}{3 {(x-1)}^3}.
+\]
+
+Проведите исследование:
+\begin{enumerate}
+\item Найдите асимптоты.
+\item Изобразите фигуры на рисунке (эскиз).
+\item Вычислите площадь фигуры.
+\item Запишите ответ.
+\end{enumerate}
+
+\end{document}
