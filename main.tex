@@ -157,23 +157,199 @@ texpreamble("\setmathfont{XITS Math}");
 
 \textbf{Ответ}: \SI{393}{\kilo\newton\per\metre}.
 
+\subsection{Задача № 2 Б}
+
+Вычислите силу давления воды на пластинку, вертикально погруженную в воду,
+считая, что удельный вес воды равен \(\rho = \SI{9.81}{\kN\per\cubic\metre}\).
+Результат округлите до целого числа.
+
+\subsubsection{Решение}
+
+\begin{figure}[htbp]
+  \centering
+  \asyinclude{asy/2-b-1.asy}
+  \caption{Графическая иллюстрация}\label{fig:2b}
+\end{figure}
+
+\paragraph{Математическая модель}
+
+Обозначим вертикальную диагональ ромба \(h = 4\), а горизонтальную \(w = 2\).
+Выделим на глубине \(x\) горизонтальную полосу шириной \(\diff x\).
+В силу подобия треугольников
+\(\triangle \mathrm{BCD}\) и \(\triangle \mathrm{ACE}\)
+(см. рисунок \ref{fig:2b}):
+\[
+  \frac{\mathrm{BD}}{\mathrm{AE}} = \frac{\mathrm{O_1 C}}{\mathrm{OC}}
+  \Leftrightarrow
+  \frac{\mathrm{BD}}{w} = \frac{h - x}{h / 2}
+  \Leftrightarrow
+  \mathrm{BD} = \frac{2w}{h} (h - x)
+\]
+
+Однако данная формула справедлива только
+если выбранная полоса находится глубже, чем отрезок \(\mathrm{AE}\),
+т.е. если \(x \ge \frac{h}{2}\).
+Если же \(x < \frac{h}{2}\), то \(\mathrm{BD} = \frac{2w}{h} x\).
+Тогда при \(\diff x \to 0\) площадь полосы будет равна
+(приближение до площади элементарного прямоугольника):
+\begin{equation}
+  \begin{cases}
+    \diff S = \frac{2w}{h} x \diff x, & x < \frac{h}{2}, \\
+    \diff S = \frac{2w}{h} (h - x) \diff x, & x \ge \frac{h}{2}.
+  \end{cases}
+\end{equation}
+
+Тогда давление на неё будет равно:
+\begin{equation}
+  \begin{cases}
+    \diff P = \rho x \diff S
+      = \rho \frac{2w}{h} x^2 \diff x, & x < \frac{h}{2}, \\
+    \diff P = \rho x \diff S
+      = \rho \frac{2w}{h} (h - x) x \diff x, & x \ge \frac{h}{2}.
+  \end{cases}
+\end{equation}
+
+Давление на всю пластинку будет равно:
+\begin{equation}\label{eq:2b}
+\begin{split}
+  P &= \int_{0}^{h/2} \diff P + \int_{h/2}^{h} \diff P
+    = \int_{0}^{h/2} \rho \frac{2w}{h} x^2 \diff x
+     + \int_{h/2}^{h} \rho \frac{2w}{h} (h - x) x \diff x \\
+    &= \rho \frac{2w}{h}
+     \left(\int_{0}^{h/2} x^2 \diff x + \int_{h/2}^{h} (h - x) x \diff x\right)
+\end{split}
+\end{equation}
+
+\paragraph{Вычисления}
+Подставим в полученную формулу \ref{eq:2b} заданные значения.
+\begin{align*}
+  P &= 9.81 \cdot \frac{2 \cdot 2}{4}
+    \left(\int_{0}^{2} x^2 \diff x + \int_{2}^{4} (4 - x) x \diff x\right) \\
+    &= 9.81 \cdot \left(
+      \left.\frac{x^3}{3}\right\rvert_{0}^{2}
+      + \left.\left(2 x^2 - \frac{x^3}{3}\right)\right\rvert_{2}^{4}
+    \right)
+    = 9.81 \cdot
+      \left(\frac{8}{3} + 32 - \frac{64}{3} - 8 + \frac{8}{3} \right)
+    = 9.81 \cdot 8 \approx 78
+\end{align*}
+
+\textbf{Ответ:} \SI{78}{\kilo\newton}
+
+\subsection{Задача № 2 В}
+
+Найдите координаты центра масс плоской однородной фигуры,
+ограниченной дугой синусоиды \(y = \sin x\)
+и отрезком оси \(Ox\) (\(0 \le x \le \pi\)).
+
+\subsubsection{Решение}
+
+\begin{figure}[htbp]
+  \centering
+  \asyinclude{asy/2-c-1.asy}
+  \caption{Графическая иллюстрация}\label{fig:2c}
+\end{figure}
+
+\paragraph{Математическая модель}
+Центр масс вычисляется следующим образом:
+\[
+  \vec{r}_{c} =
+    {\left(\int_{D} \rho(\vec{r}) \diff S\right)}^{-1}
+    \int_{D} \rho(\vec{r}) \vec{r} \diff S
+\]
+где \(\rho(\vec{r})\) --- плотность.
+В данной задаче плотность --- константа, поэтому справедливо
+\begin{equation} \label{eq:2c-main}
+  \vec{r}_{c} =
+    {\left(\rho \int_{D} \diff S\right)}^{-1}
+    \rho \int_{D} \vec{r} \diff S =
+    {\left(\int_{D} \diff S\right)}^{-1}
+    \int_{D} \vec{r} \diff S
+\end{equation}
+
+Так как вычисления производятся в ДПСК, то
+\(\vec{r} = x \vec{i} + y \vec{j}\).
+Пользуясь свойствами линейности интеграла, получаем:
+\begin{equation} \label{eq:2c-main-1}
+  \int_{D} \vec{r} \diff S
+    = \int_{D} x \vec{i} + y \vec{j} \diff S
+    = \int_{D} x \vec{i} \diff S + \int_{D} y \vec{j} \diff S
+    = \vec{i} \int_{D} x \diff S + \vec{j} \int_{D} y \diff S
+\end{equation}
+
+Для каждого из полученных интегралов справедливо:
+\begin{align}
+  \int_{D} x \diff S = \int_{0}^{\pi} \diff x \int_{0}^{\sin x} x \diff y
+  \label{eq:2c-1} \\
+  \int_{D} y \diff S = \int_{0}^{\pi} \diff x \int_{0}^{\sin x} y \diff y
+  \label{eq:2c-2} \\
+  \int_{D} \diff S = \int_{0}^{\pi} \diff x \int_{0}^{\sin x} \diff y
+  \label{eq:2c-3}
+\end{align}
+
+\paragraph{Вычисления}
+
+Для начала вычислим интеграл по формуле \ref{eq:2c-3}:
+\begin{equation} \label{eq:2c-3-calc}
+\begin{split}
+  \int_{D} \diff S
+    &= \int_{0}^{\pi} \diff x \int_{0}^{\sin x} \diff y
+     = \int_{0}^{\pi} \sin x \diff x
+     = - \cos x \bigg\rvert_{0}^{\pi}
+     = - \cos \pi + \cos 0 = 2
+\end{split}
+\end{equation}
+
+Вычислим интегралы по формулам \ref{eq:2c-1} и \ref{eq:2c-2}:
+\begin{equation} \label{eq:2c-1-calc}
+\begin{split}
+  \int_{D} x \diff S
+  &= \int_{0}^{\pi} \diff x \int_{0}^{\sin x} x \diff y
+   = \int_{0}^{\pi} x \sin x \diff x
+   =
+    \begin{bmatrix}
+      u = x & v = - \cos x \\
+      \diff u = \diff x & \diff v = \sin x \diff x
+    \end{bmatrix} \\
+  &= \bigg( -x \cos x \bigg) \bigg\rvert_{0}^{\pi}
+   + \int_{0}^{\pi} \cos x \diff x
+   = - \pi \cos\pi + \bigg( \sin x \bigg) \bigg\rvert_{0}^{\pi}
+   = \pi
+\end{split}
+\end{equation}
 
 
+\begin{equation} \label{eq:2c-2-calc}
+\begin{split}
+  \int_{D} y \diff S
+  &= \int_{0}^{\pi} \diff x \int_{0}^{\sin x} y \diff y
+   = \frac{1}{2} \int_{0}^{\pi} \sin^{2}(x) \diff x
+   = \frac{1}{4} \int_{0}^{\pi} (1 - \cos(2x) \diff x \\
+  &= \frac{1}{4}
+     \left.\left(x - \frac{1}{2} \sin(2x) \right)\right\rvert_{0}^{\pi}
+   = \frac{1}{4} \pi
+\end{split}
+\end{equation}
+
+Подставим полученные значения в формулы \ref{eq:2c-main} и \ref{eq:2c-main-1}:
+\begin{equation*}
+\begin{split}
+  \vec{r}_{c}
+    &= {\left(\int_{D} \diff S\right)}^{-1}
+      \int_{D} \vec{r} \diff S \\
+    &= {\left(\int_{D} \diff S\right)}^{-1}
+      \left(\vec{i} \int_{D} x \diff S + \vec{j} \int_{D} y \diff S\right)
+    \xlongequal{
+      \text{из \ref{eq:2c-1-calc}, \ref{eq:2c-2-calc} и \ref{eq:2c-3-calc}}
+    }
+     {2}^{-1} \left( \vec{i} \pi + \vec{j} \frac{\pi}{4} \right) \\
+    &= \frac{\pi}{2} \vec{i} + \frac{\pi}{8} \vec{j}
+\end{split}
+\end{equation*}
+
+\textbf{Ответ:} \(\left(\frac{\pi}{2}; \frac{\pi}{8}\right)\).
 
 
-
-
-%\subsection{Задача № 2 Б}
-%
-%Вычислите силу давления воды на пластинку, вертикально погруженную в воду,
-%считая, что удельный вес воды равен \(\rho = \SI{9.81}{\kN\per\cubic\metre}\).
-%Результат округлите до целого числа.
-%
-%\subsection{Задача № 2 В}
-%
-%Найдите координаты центра масс плоской однородной фигуры,
-%ограниченной дугой синусоиды \(y = \sin x\) и
-%отрезком оси \(Ox\) (\(0 \le x \le \pi\)).
 %
 %\section{Задача № 3}
 %
