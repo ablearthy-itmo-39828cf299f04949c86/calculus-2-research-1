@@ -2,54 +2,193 @@
 
 \usepackage{ablpreamble}
 
+\usepackage[inline]{asymptote}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\def\asydir{asy}
+
+%\usepackage{svg}
+
 \begin{document}
 
-\section{Задача № 1}
 
-\[
-  g(x) =
-  \begin{cases}
-    \sqrt{x - 3}, & x \ge 3, \\
-    \frac{1}{x - 3}, & 0 \le x < 3, \\
-    3 x^2 + 1, & x < 0.
-  \end{cases}
-\]
+\begin{asydef}
+// Global Asymptote definitions can be put here.
+settings.prc=true;
+texpreamble("\usepackage{xltxtra,unicode-math}");
+texpreamble("\setmainfont{Times New Roman}\setromanfont{Times New Roman}");
+texpreamble("\setsansfont{Arial}\setmonofont{Courier New}");
+texpreamble("\setmathfont{XITS Math}");
+\end{asydef}
 
-\begin{enumerate}
-\item Найдите такую непрерывную функцию \(f(x)\), что \(f'(x) = g(x)\) или докажите, что она
-    не может быть непрерывна.
-\item Постройте графики функций \(f(x)\) и \(g(x)\) в одном масштабе и расположите их один под другим.
-\item Проанализируйте графики, сделайте комментарии о виде графика функции \(f(x)\) в зависимости от вида графика функции \(g(x)\).
-\end{enumerate}
+%\section{Задача № 1}
+%
+%\[
+%  g(x) =
+%  \begin{cases}
+%    \sqrt{x - 3}, & x \ge 3, \\
+%    \frac{1}{x - 3}, & 0 \le x < 3, \\
+%    3 x^2 + 1, & x < 0.
+%  \end{cases}
+%\]
+%
+%\begin{enumerate}
+%  \item
+%    Найдите такую непрерывную функцию \(f(x)\),
+%    что \(f'(x) = g(x)\) или докажите, что она не может быть непрерывна.
+%  \item
+%    Постройте графики функций \(f(x)\) и \(g(x)\) в одном масштабе
+%    и расположите их один под другим.
+%  \item
+%    Проанализируйте графики,
+%    сделайте комментарии о виде графика функции \(f(x)\)
+%    в зависимости от вида графика функции \(g(x)\).
+%\end{enumerate}
 
 \section{Задача № 2}
 
 \subsection{Задача № 2 А}
 
-Вычислите работу, которую нужно затратить на выкачивание воды из резервуара, представляющего из себя усеченный конус, у которого радиус верхнего основания равен 1 м, нижнего – 2 м, высота – 3 м. Удельный вес воды принять \(\rho = \SI{9.81}{\kN\per\cubic\metre}\), \(\pi = \num{3.14}\)
+Вычислите работу, которую нужно затратить на выкачивание воды из резервуара,
+представляющего из себя усеченный конус,
+у которого радиус верхнего основания равен 1 м, нижнего – 2 м, высота – 3 м.
+Удельный вес воды принять \(\rho = \SI{9.81}{\kN\per\cubic\metre}\),
+\(\pi = \num{3.14}\)
 
-\subsection{Задача № 2 Б}
+\subsubsection{Решение}
 
-Вычислите силу давления воды на пластинку, вертикально погруженную в воду, считая, что удельный вес воды равен \(\rho = \SI{9.81}{\kN\per\cubic\metre}\). Результат округлите до целого числа.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \asyinclude{asy/2-a-1.asy}
+    \caption{Графическая иллюстрация}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \asyinclude{asy/2-a-2.asy}
+    \caption{Схематичный чертёж}
+  \end{subfigure}
+\end{figure}
 
-\subsection{Задача № 2 В}
+\paragraph{Математическая модель}
 
-Найдите координаты центра масс плоской однородной фигуры, ограниченной дугой синусоиды \(y = \sin x\) и
-отрезком оси \(Ox\) (\(0 \le x \le \pi\)).
+Обозначим радиус верхнего основания \(r_1 = \mathrm{AH} = 1\),
+нижнего --- \(r_2 = \mathrm{OE} = 2\),
+а высоту усеченного конуса \(h = \mathrm{OH} = 3\).
 
-\section{Задача № 3}
+Выделим на высоте \(x\) (высоту будем считать от нижнего основания конуса)
+слой жидкости толщиной \(\Delta x\).
+Чтобы найти его объем,
+вначале вычислим \(r = \mathrm{O'D}\) --- радиус сечения на высоте \(x\).
+\begin{equation}\label{eq:2a-1}
+  r = r_1 + \mathrm{BD}
+\end{equation}
+Найдём \(BD\) из подобия треугольников
+\(\triangle \mathrm{ACE}\) и \(\triangle \mathrm{ABD}\):
+\begin{equation}\label{eq:2a-2}
+  \mathrm{BD} : \mathrm{CE} = \mathrm{AB} : \mathrm{AC},
+  \quad\text{тогда }
+  \mathrm{BD} = \frac{\mathrm{CE} \cdot \mathrm{AB}}{\mathrm{AC}}.
+\end{equation}
 
-Найти площадь фигуры, образованной графиком функции \(f(x)\) и её асимптотами, если
+Далее выразим
+\(\mathrm{CE} = r_2 - r_1\),
+\(\mathrm{AB} = h - x\),
+\(\mathrm{AC} = \mathrm{OH} = h\).
+
+При подстановке выражений в формулы \ref{eq:2a-1} и \ref{eq:2a-2} получаем:
 \[
-  f(x) = \frac{x^4 - 4 x^3 + 6 x^2 - 4 x + 16}{3 {(x-1)}^3}.
+  r = r_1 + \frac{\mathrm{CE} \cdot \mathrm{AB}}{\mathrm{AC}}
+    = r_1 + \frac{(r_2 - r_1)(h - x)}{h}
 \]
 
-Проведите исследование:
-\begin{enumerate}
-\item Найдите асимптоты.
-\item Изобразите фигуры на рисунке (эскиз).
-\item Вычислите площадь фигуры.
-\item Запишите ответ.
-\end{enumerate}
+Таким образом, при \(\Delta x \to 0\) объем слоя воды толщины \(\Delta x\)
+на высоте \(x\) будет равен:
+\[\Delta V = \pi r^2 \Delta x.\]
+
+Этот слой нужно поднять на высоту \(h - x\),
+значит элементарная работа, затрачиваемая на подъем этого слоя,
+будет равна:
+\[\diff A = \rho (h - x) \diff V.\]
+
+Тогда работа по выкачиванию всей воды будет равна:
+\begin{equation}\label{eq:2a-int}
+\begin{split}
+  A = \int_{0}^{h} \diff A
+    = \int_{0}^{h} \rho (h - x) \diff V
+    &= \int_{0}^{h} \rho (h - x) \pi r^2 \diff x \\
+    &= \int_{0}^{h} \rho (h - x) \pi
+       {\left(r_1 + \frac{(r_2 - r_1)(h - x)}{h}\right)}^2 \diff x
+\end{split}
+\end{equation}
+
+\paragraph{Вычисления}
+
+Заданные значения подставим в полученную формулу \ref{eq:2a-int}:
+\begin{equation*}
+\begin{split}
+  A &= \pi \cdot 9.81 \int_{0}^{3} (3 - x)
+      {\left(1 + \frac{(2 - 1)(3 - x)}{3} \right)}^2 \diff x
+    =
+      \begin{bmatrix}
+        t = 3 - x        & \diff t = - \diff x \\
+        t_1 = 3 - 0  = 3 & t_2 = 3 - 3 = 0 \\
+      \end{bmatrix} \\
+    &= \pi \cdot 9.81 \cdot (-1)
+       \int_{3}^{0} t {\left(1 + \frac{t}{3}\right)}^2 \diff t
+     = \pi \cdot 9.81
+       \int_{0}^{3}
+         \left(t + \frac{2 t^2}{3} + \frac{t^3}{9} \right) \diff t \\
+    &= \pi \cdot 9.81 \cdot
+       \left.
+         \left(\frac{t^2}{2} + \frac{2 t^3}{9} + \frac{t^4}{36} \right)
+       \right\rvert_{0}^{3}
+     = \pi \cdot 9.81 \cdot
+     \left(\frac{9}{2} + 6 + \frac{9}{4} \right)
+     = \pi \cdot 9.81 \cdot \frac{51}{4}
+     \approx 393
+\end{split}
+\end{equation*}
+
+\textbf{Ответ}: \SI{393}{\kilo\newton\per\metre}.
+
+
+
+
+
+
+
+%\subsection{Задача № 2 Б}
+%
+%Вычислите силу давления воды на пластинку, вертикально погруженную в воду,
+%считая, что удельный вес воды равен \(\rho = \SI{9.81}{\kN\per\cubic\metre}\).
+%Результат округлите до целого числа.
+%
+%\subsection{Задача № 2 В}
+%
+%Найдите координаты центра масс плоской однородной фигуры,
+%ограниченной дугой синусоиды \(y = \sin x\) и
+%отрезком оси \(Ox\) (\(0 \le x \le \pi\)).
+%
+%\section{Задача № 3}
+%
+%Найти площадь фигуры, образованной графиком функции \(f(x)\) и её асимптотами,
+%если
+%\[
+%  f(x) = \frac{x^4 - 4 x^3 + 6 x^2 - 4 x + 16}{3 {(x-1)}^3}.
+%\]
+%
+%Проведите исследование:
+%\begin{enumerate}
+%\item Найдите асимптоты.
+%\item Изобразите фигуры на рисунке (эскиз).
+%\item Вычислите площадь фигуры.
+%\item Запишите ответ.
+%\end{enumerate}
 
 \end{document}
