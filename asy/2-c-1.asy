@@ -34,10 +34,10 @@ draw(
 );
 
 
+label("$0$", (0, 0), align=W+S);
+label("$\pi$", (pi, 0), align=S);
+
 xlimits(0, pi + 0.2);
 
 xaxis(Label("$x$",align=2S), Arrow);
 yaxis(Label("$y$",align=2W), Arrow);
-
-label("$0$", (0, 0), align=W+S);
-label("$\pi$", (pi, 0), align=S);
