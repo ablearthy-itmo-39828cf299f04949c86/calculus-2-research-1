@@ -6,6 +6,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\usepackage{import}
+
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 
 \def\asydir{asy}
@@ -13,6 +15,11 @@
 %\usepackage{svg}
 
 \begin{document}
+
+\import{./}{titlepage}
+\clearpage
+  \tableofcontents
+\clearpage
 
 
 \begin{asydef}
@@ -535,4 +542,12 @@ texpreamble("\setmathfont{XITS Math}");
 А значит и площадь \(S = +\infty\).
 
 \textbf{Ответ}: \(S = +\infty\).
+
+\clearpage
+  \import{./}{score_sheet}
+\clearpage
+
+\clearpage
+  \import{./}{conclusion}
+\clearpage
 \end{document}
