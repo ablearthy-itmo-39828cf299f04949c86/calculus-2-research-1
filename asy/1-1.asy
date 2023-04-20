@@ -1,8 +1,8 @@
 import graph;
 
-size(11cm, 15cm);
+size(11cm, 11cm);
 
-defaultpen(fontsize(10pt));
+defaultpen(fontsize(12pt));
 
 label("$0$", (-0.3, -0.3));
 
@@ -18,10 +18,10 @@ xaxis("$x$",axis=YEquals(0),
 
 yaxis("$y$",axis=XEquals(0),
   ymin=-5.5,
-  ymax=9.5,
+  ymax=7.5,
   Ticks(
     Label(),
-    new real[]{-5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+    new real[]{-5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7},
     Size=1mm
   ),
   above=false,
@@ -39,8 +39,8 @@ real F3(real x) {
   return sqrt(x-3);
 }
 
-// 9.5 = 3x^2 + 1
-real xmin = -sqrt((9.5 - 1) / 3);
+// 7.5 = 3x^2 + 1
+real xmin = -sqrt((7.5 - 1) / 3);
 
 draw(graph(F1, xmin, 0, n = 500));
 dot((0,F1(0)), UnFill, p=linewidth(0.4mm));
